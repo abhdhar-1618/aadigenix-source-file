@@ -1,210 +1,184 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AadiGenix Landing</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: 'Merriweather', serif;
-            background: black;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AadiGenix Landing</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: 'Merriweather', serif;
+      background: black;
+      overflow: hidden;
+    }
 
-        #intro-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            z-index: 10;
-        }
-        .hide-video {
-            opacity: 0;
-            transition: opacity 1.5s ease-out;
-        }
+    #intro-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;
+      z-index: 10;
+    }
 
-        #main-content {
-            display: none;
-            opacity: 0;
-            transition: opacity 1.5s ease-in-out;
-            text-align: center;
-        }
-        .header {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 20px;
-            font-size: 28px;
-            font-weight: bold;
-            color: white;
-            letter-spacing: 2px;
-        }
-        .welcome {
-            text-align: center;
-            font-size: 24px;
-            color: white;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-        .nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            z-index: 100;
-        }
-        .nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 20px;
-            font-size: 18px;
-            transition: color 0.3s ease-in-out;
-        }
-        .nav a:hover {
-            color: #ffdd44;
-            text-decoration: underline;
-        }
-        .hero {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: url('https://i.imgur.com/FPVFZ4J.jpg') no-repeat center center fixed;
-            background-size: cover;
-            padding: 20px;
-            color: white;
-        }
-        .hero h1 {
-            font-size: 50px;
-            margin: 0;
-        }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.85);
-            font-size: 16px;
-            color: white;
-        }
-        .logo {
-            width: 200px;
-            height: auto;
-            animation: rotateOnce 2s linear;
-        }
-        @keyframes rotateOnce {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        .rotate {
-            animation: rotateInfinite 2s linear infinite;
-        }
-        @keyframes rotateInfinite {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        .ace-text {
-            display: none;
-            font-size: 32px;
-            font-weight: bold;
-            color: white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 2s ease-in;
-        }
-    </style>
+    .hide-video {
+      opacity: 0;
+      transition: opacity 1.5s ease-out;
+    }
+
+    #main-content {
+      display: none;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      text-align: center;
+    }
+
+    .header {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+      letter-spacing: 2px;
+    }
+
+    .welcome {
+      text-align: center;
+      font-size: 24px;
+      color: white;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      z-index: 100;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 20px;
+      font-size: 18px;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .nav a:hover {
+      color: #ffdd44;
+      text-decoration: underline;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('https://i.imgur.com/FPVFZ4J.jpg') no-repeat center center fixed;
+      background-size: cover;
+      padding: 20px;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 50px;
+      margin: 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      font-size: 16px;
+      color: white;
+    }
+
+    .logo {
+      width: 200px;
+      height: auto;
+    }
+
+    .rotate-during-audio {
+      animation: rotateAudio linear;
+      animation-duration: 11s;
+    }
+
+    @keyframes rotateAudio {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(720deg); }
+    }
+  </style>
 </head>
 <body>
-    <video id="intro-video" autoplay muted playsinline>
-        <source src="https://i.imgur.com/fMtpf7Y.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+  <video id="intro-video" autoplay muted playsinline>
+    <source src="https://i.imgur.com/fMtpf7Y.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
 
-    <div id="main-content">
-        <div class="header"></div>
-        <div class="welcome" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 32px; font-weight: bold;">प्राचीनानां निनादः, भविष्यस्य संरचना</div>
-        <div class="nav">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Gallery</a>
-            <a href="#">Contact</a>
-        </div>
-        <div class="hero">
-            <h1></h1>
-            <div style="position: absolute; bottom: 3%; left: 50%; transform: translate(-50%, 0); text-align: center;">
-                <img src="processed_logo_circular.webp" alt="AadiGenix Logo" id="logo" class="logo">
-            </div>
-        </div>
-        <div class="footer">&copy; 2025 . All rights reserved.</div>
+  <audio id="aum-audio" preload="auto">
+    <source src="synced_aum_futuristic.ogg" type="audio/ogg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <div id="main-content">
+    <div class="header"></div>
+    <div class="welcome" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 32px; font-weight: bold;">
+      प्राचीनानां निनादः, भविष्यस्य संरचना
     </div>
+    <div class="nav">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Gallery</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="hero">
+      <h1></h1>
+      <div style="position: absolute; bottom: 3%; left: 50%; transform: translate(-50%, 0); text-align: center;">
+        <img src="processed_logo_circular.webp" alt="AadiGenix Logo" id="logo" class="logo" />
+      </div>
+    </div>
+    <div class="footer">&copy; 2025 . All rights reserved.</div>
+  </div>
 
-    <div id="ace-text" class="ace-text">Ace is here...</div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const aumAudio = document.getElementById("aum-audio");
+      const introVideo = document.getElementById("intro-video");
+      const logo = document.getElementById("logo");
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const aumAudio = new Audio('synced_aum_futuristic.ogg');
-            aumAudio.volume = 0.7;
-            aumAudio.preload = "auto";
+      introVideo.addEventListener("ended", function () {
+        this.classList.add("hide-video");
+        setTimeout(() => {
+          this.style.display = "none";
+          const mainContent = document.getElementById("main-content");
+          mainContent.style.display = "block";
+          setTimeout(() => {
+            mainContent.style.opacity = "1";
+          }, 200);
+        }, 3000);
+      });
 
-            function startAum() {
-                aumAudio.play().catch(() => {});
-                document.removeEventListener("click", startAum);
-                document.removeEventListener("touchstart", startAum);
-            }
-
-            document.addEventListener("click", startAum);
-            document.addEventListener("touchstart", startAum);
-
-            const introVideo = document.getElementById("intro-video");
-            const logo = document.getElementById("logo");
-            const aceText = document.getElementById("ace-text");
-            let isRotating = false;
-
-            introVideo.addEventListener("ended", function() {
-                this.classList.add("hide-video");
-                setTimeout(() => {
-                    this.style.display = "none";
-                    let mainContent = document.getElementById("main-content");
-                    mainContent.style.display = "block";
-                    setTimeout(() => {
-                        mainContent.style.opacity = "1";
-                    }, 200);
-                }, 3000);
-            });
-
-            logo.addEventListener("click", function() {
-                if (!isRotating) {
-                    logo.classList.add("rotate");
-                    isRotating = true;
-
-                    setTimeout(() => {
-                        logo.classList.remove("rotate");
-                        isRotating = false;
-                        aceText.style.display = "block";
-                        setTimeout(() => {
-                            aceText.style.opacity = "1";
-                        }, 200);
-                    }, 4000);
-                }
-            });
-        });
-    </script>
+      logo.addEventListener("click", function () {
+        if (!aumAudio.paused) {
+          aumAudio.currentTime = 0;
+        }
+        logo.classList.remove("rotate-during-audio");
+        void logo.offsetWidth;
+        logo.classList.add("rotate-during-audio");
+        aumAudio.play();
+      });
+    });
+  </script>
 </body>
 </html>
