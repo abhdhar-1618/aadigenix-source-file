@@ -37,21 +37,15 @@
       text-align: center;
     }
 
-    .header {
-      background: rgba(0, 0, 0, 0.85);
-      padding: 20px;
-      font-size: 28px;
-      font-weight: bold;
-      color: white;
-      letter-spacing: 2px;
-    }
-
     .welcome {
-      text-align: center;
-      font-size: 24px;
-      color: white;
-      margin-top: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 32px;
       font-weight: bold;
+      color: white;
+      z-index: 2;
     }
 
     .nav {
@@ -79,20 +73,39 @@
     }
 
     .hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/aadigenix_1.png') no-repeat center center fixed;
+      background-size: cover;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/aadigenix_1.png') no-repeat center center fixed;
-      background-size: cover;
-      padding: 20px;
-      color: white;
+    }
+
+    #hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
 
     .hero h1 {
       font-size: 50px;
       margin: 0;
+      z-index: 2;
+    }
+
+    .logo {
+      width: 200px;
+      height: auto;
+      position: relative;
+      z-index: 2;
     }
 
     .footer {
@@ -101,11 +114,6 @@
       background: rgba(0, 0, 0, 0.85);
       font-size: 16px;
       color: white;
-    }
-
-    .logo {
-      width: 200px;
-      height: auto;
     }
 
     .rotate-during-audio {
@@ -117,11 +125,39 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(720deg); }
     }
+
+    #click-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.92);
+      color: white;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-align: center;
+      padding: 20px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.8; }
+      50% { opacity: 1; }
+      100% { opacity: 0.8; }
+    }
   </style>
 </head>
 <body>
   <video id="intro-video" autoplay muted playsinline>
-    <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/82e7377fadf5b621d8e9bf406221bdf4d1eb4efe/Aadigenix%20Intro%20video.mp4" type="video/mp4" />
+    <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/4dda7b09ddd30b92aca4b091cc4162f1fc4fba85/Aadigenix%20rectified%20Intro%20video.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 
@@ -130,52 +166,83 @@
     Your browser does not support the audio element.
   </audio>
 
+  <div id="click-overlay">Tap to awaken the resonance…</div>
+
   <div id="main-content">
-    <div class="header"></div>
-    <div class="welcome" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 32px; font-weight: bold;">
-      प्राचीनानां निनादः, भविष्यस्य संरचना
-    </div>
+    <div class="welcome">प्राचीनानां निनादः, भविष्यस्य संरचना</div>
     <div class="nav">
       <a href="#">Home</a>
       <a href="#">About</a>
       <a href="#">Gallery</a>
       <a href="#">Contact</a>
     </div>
-    <div class="hero">
+
+    <div class="hero" id="hero">
+      <video id="hero-video" muted playsinline>
+        <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/Ancient%20Tech%20Fusion_simple_compose.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <h1></h1>
       <div style="position: absolute; bottom: 3%; left: 50%; transform: translate(-50%, 0); text-align: center;">
         <img src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/processed_logo_circular.png" alt="AadiGenix Logo" id="logo" class="logo" />
       </div>
     </div>
-    <div class="footer">&copy; 2025 . All rights reserved.</div>
+
+    <div class="footer">&copy; 2025 AadiGenix. All rights reserved.</div>
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const aumAudio = document.getElementById("aum-audio");
       const introVideo = document.getElementById("intro-video");
+      const mainContent = document.getElementById("main-content");
+      const heroVideo = document.getElementById("hero-video");
       const logo = document.getElementById("logo");
+      const aumAudio = document.getElementById("aum-audio");
+      const clickOverlay = document.getElementById("click-overlay");
+
+      aumAudio.muted = true;
+      aumAudio.play().then(() => {
+        aumAudio.pause();
+        aumAudio.currentTime = 0;
+      });
 
       introVideo.addEventListener("ended", function () {
         this.classList.add("hide-video");
         setTimeout(() => {
           this.style.display = "none";
-          const mainContent = document.getElementById("main-content");
           mainContent.style.display = "block";
           setTimeout(() => {
             mainContent.style.opacity = "1";
+            clickOverlay.style.display = "flex";
           }, 200);
         }, 3000);
       });
 
-      logo.addEventListener("click", function () {
-        if (!aumAudio.paused) {
-          aumAudio.currentTime = 0;
-        }
-        logo.classList.remove("rotate-during-audio");
-        void logo.offsetWidth;
+      clickOverlay.addEventListener("click", function () {
+        clickOverlay.style.display = "none";
+
+        // Start the sacred sequence
+        aumAudio.muted = false;
+        aumAudio.currentTime = 0;
+        aumAudio.play().catch(err => console.log("Audio blocked:", err));
         logo.classList.add("rotate-during-audio");
-        aumAudio.play();
+
+        setTimeout(() => {
+          logo.classList.remove("rotate-during-audio");
+          aumAudio.pause();
+          aumAudio.currentTime = 0;
+
+          heroVideo.style.opacity = 1;
+          heroVideo.currentTime = 0;
+
+          setTimeout(() => {
+            heroVideo.play();
+            setTimeout(() => {
+              heroVideo.pause();
+              heroVideo.style.opacity = 0;
+            }, 4000);
+          }, 300);
+        }, 11000);
       });
     });
   </script>
