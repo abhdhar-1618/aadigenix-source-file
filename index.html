@@ -42,22 +42,15 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 32px; /* Keep it always 32px */
+      font-size: 32px;
       font-weight: bold;
       color: white;
       text-align: center;
       z-index: 2;
       padding: 0 10px;
-      white-space: nowrap; /* Important: Do not break the line */
-      overflow: hidden; /* Hide anything extra if needed */
-      text-overflow: ellipsis; /* Show "..." if text gets too long */
-
-    }
-
-    @media (max-width: 600px) {
-      .welcome {
-        font-size: 20px; /* Auto shrink on mobile */
-      }
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .nav {
@@ -93,6 +86,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      transition: background-image 1s ease-in-out;
     }
 
     #hero-video {
@@ -165,26 +159,46 @@
       50% { opacity: 1; }
       100% { opacity: 0.8; }
     }
+
+    /* About section autofit image */
+    #about-bg-img {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 50;
+      object-fit: contain;
+      background: black;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
+  <!-- About background image for autofit, hidden by default -->
+  <img id="about-bg-img"
+    src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/Scroll.png"
+    alt="Scroll Background" />
+
   <video id="intro-video" autoplay muted playsinline>
     <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/4dda7b09ddd30b92aca4b091cc4162f1fc4fba85/Aadigenix%20rectified%20Intro%20video.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 
   <audio id="aum-audio" preload="auto">
-    <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/82e7377fadf5b621d8e9bf406221bdf4d1eb4efe/synced_aum_futuristic.ogg" type="audio/ogg" />
+    <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/82e7377fadf5b621d8e9bf406221bdf4efe/synced_aum_futuristic.ogg" type="audio/ogg" />
+    <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/synced_aum_futuristic.mp3" type="audio/mp3" />
     Your browser does not support the audio element.
   </audio>
 
   <div id="click-overlay">Tap to awaken the resonance…</div>
 
   <div id="main-content">
-    <div class="welcome">प्राचीनानां निनादः,भविष्यस्य संरचना</div>
+    <div class="welcome">प्राचीनानां निनादः, भविष्यस्य संरचना</div>
     <div class="nav">
-      <a href="#">Home</a>
-      <a href="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/Scroll.png" target="_blank">About</a>
+      <a href="#" id="home-link">Home</a>
+      <a href="#" id="about-link">About</a>
       <a href="#">Gallery</a>
       <a href="#">Contact</a>
     </div>
@@ -211,12 +225,11 @@
       const logo = document.getElementById("logo");
       const aumAudio = document.getElementById("aum-audio");
       const clickOverlay = document.getElementById("click-overlay");
-
-      aumAudio.muted = true;
-      aumAudio.play().then(() => {
-        aumAudio.pause();
-        aumAudio.currentTime = 0;
-      });
+      const aboutLink = document.getElementById("about-link");
+      const homeLink = document.getElementById("home-link");
+      const hero = document.getElementById("hero");
+      const aboutBgImg = document.getElementById("about-bg-img");
+      const welcome = document.querySelector(".welcome");
 
       introVideo.addEventListener("ended", function () {
         this.classList.add("hide-video");
@@ -230,20 +243,22 @@
         }, 3000);
       });
 
+      // Only play audio after overlay is clicked, with muted = false set BEFORE play()
       clickOverlay.addEventListener("click", function () {
         clickOverlay.style.display = "none";
-
+        // Unmute first
         aumAudio.muted = false;
         aumAudio.currentTime = 0;
-        aumAudio.play().catch(err => console.log("Audio blocked:", err));
+        // Play (should work on all browsers after user gesture)
+        aumAudio.play().catch(err => {
+          alert("Audio could not play due to browser restrictions or file error.");
+          console.log("Audio blocked:", err);
+        });
         logo.classList.add("rotate-during-audio");
-
         setTimeout(() => {
           logo.classList.remove("rotate-during-audio");
-
           heroVideo.style.opacity = 1;
           heroVideo.currentTime = 0;
-
           setTimeout(() => {
             heroVideo.play();
             setTimeout(() => {
@@ -252,6 +267,30 @@
             }, 4000);
           }, 300);
         }, 11000);
+      });
+
+      // About link shows the full viewport image autofit
+      aboutLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        heroVideo.pause();
+        heroVideo.style.opacity = 0;
+        welcome.style.display = "none";
+        logo.style.display = "none";
+        aboutBgImg.style.display = "block";
+        hero.style.background = "black";
+        hero.style.backgroundImage = "none";
+      });
+
+      // Home link restores everything
+      homeLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        aboutBgImg.style.display = "none";
+        welcome.style.display = "block";
+        logo.style.display = "block";
+        hero.style.background = "";
+        hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/aadigenix_1.png')";
+        hero.style.backgroundSize = "cover";
+        hero.style.backgroundPosition = "center center";
       });
     });
   </script>
