@@ -42,10 +42,19 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 32px;
+      font-size: 32px; /* Default size */
       font-weight: bold;
       color: white;
+      text-align: center;
       z-index: 2;
+      padding: 0 10px;
+      word-break: break-word;
+    }
+
+    @media (max-width: 600px) {
+      .welcome {
+        font-size: 20px; /* Auto shrink on mobile */
+      }
     }
 
     .nav {
@@ -169,7 +178,7 @@
   <div id="click-overlay">Tap to awaken the resonance…</div>
 
   <div id="main-content">
-    <div class="welcome">प्राचीनानां निनादः, भविष्यस्य संरचना</div>
+    <div class="welcome">प्राचीनानां निनादः,भविष्यस्य संरचना</div>
     <div class="nav">
       <a href="#">Home</a>
       <a href="#">About</a>
@@ -221,7 +230,6 @@
       clickOverlay.addEventListener("click", function () {
         clickOverlay.style.display = "none";
 
-        // Start the sacred sequence
         aumAudio.muted = false;
         aumAudio.currentTime = 0;
         aumAudio.play().catch(err => console.log("Audio blocked:", err));
