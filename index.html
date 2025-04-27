@@ -42,13 +42,16 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: clamp(20px, 5vw, 32px); /* New! */
+      font-size: 32px; /* Keep it always 32px */
       font-weight: bold;
       color: white;
       text-align: center;
       z-index: 2;
       padding: 0 10px;
-      word-break: break-word;
+      white-space: nowrap; /* Important: Do not break the line */
+      overflow: hidden; /* Hide anything extra if needed */
+      text-overflow: ellipsis; /* Show "..." if text gets too long */
+
     }
 
     @media (max-width: 600px) {
