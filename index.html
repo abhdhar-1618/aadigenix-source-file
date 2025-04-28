@@ -110,7 +110,6 @@
       z-index: 0;
       opacity: 0;
       transition: opacity 1s ease-in-out;
-      pointer-events: none;
     }
 
     .hero h1 {
@@ -142,28 +141,6 @@
     @keyframes rotateAudio {
       from { transform: rotate(0deg); }
       to { transform: rotate(720deg); }
-    }
-
-    /* Overlay for fading screen effect */
-    #fade-overlay {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 1000;
-      pointer-events: none;
-      background: rgba(0,0,0,0.55);
-      opacity: 0;
-      transition: opacity 1.2s;
-      display: block;
-    }
-
-    .fade-in {
-      opacity: 1 !important;
-    }
-    .fade-out {
-      opacity: 0 !important;
     }
 
     #click-overlay {
@@ -235,9 +212,6 @@
     <div class="footer">&copy; 2025 AadiGenix. All rights reserved.</div>
   </div>
 
-  <!-- Fading overlay (always present, uses opacity for fade in/out) -->
-  <div id="fade-overlay"></div>
-
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const introVideo = document.getElementById("intro-video");
@@ -251,7 +225,6 @@
       const hero = document.getElementById("hero");
       const stretchBg = document.getElementById("stretch-bg");
       const welcome = document.querySelector(".welcome");
-      const fadeOverlay = document.getElementById("fade-overlay");
 
       introVideo.addEventListener("ended", function () {
         this.classList.add("hide-video");
@@ -270,53 +243,36 @@
         aumAudio.muted = false;
         aumAudio.currentTime = 0;
         logo.classList.add("rotate-during-audio");
-
         aumAudio.play().then(() => {
           setTimeout(() => {
             logo.classList.remove("rotate-during-audio");
-            // Fade in overlay when wheel stops
-            fadeOverlay.classList.add("fade-in");
+            heroVideo.style.opacity = 1;
+            heroVideo.currentTime = 0;
             setTimeout(() => {
-              fadeOverlay.classList.remove("fade-in");
-              fadeOverlay.classList.add("fade-out");
-              heroVideo.style.opacity = 1;
-              heroVideo.currentTime = 0;
+              heroVideo.play();
               setTimeout(() => {
-                heroVideo.play();
-                setTimeout(() => {
-                  heroVideo.pause();
-                  heroVideo.style.opacity = 0;
-                  fadeOverlay.classList.remove("fade-out");
-                }, 4000);
-              }, 300);
-            }, 1200);
+                heroVideo.pause();
+                heroVideo.style.opacity = 0;
+              }, 4000);
+            }, 300);
           }, 11000);
         }).catch(err => {
           logo.classList.remove("rotate-during-audio");
         });
       });
 
-      // ABOUT: Hide home stuff, show stretched background and fade in
       aboutLink.addEventListener("click", function (e) {
         e.preventDefault();
         heroVideo.pause();
         heroVideo.style.opacity = 0;
         welcome.style.display = "none";
         logo.style.display = "none";
+        // Show the stretched background image
         stretchBg.style.display = "block";
+        // Remove hero's background image so only stretched bg shows
         hero.style.backgroundImage = "none";
-        // Animate screen fade-in for about
-        fadeOverlay.classList.add("fade-in");
-        setTimeout(() => {
-          fadeOverlay.classList.remove("fade-in");
-          fadeOverlay.classList.add("fade-out");
-        }, 1200);
-        setTimeout(() => {
-          fadeOverlay.classList.remove("fade-out");
-        }, 2400);
       });
 
-      // HOME: Restore home screen, logo, welcome, hero bg, hide stretched background
       homeLink.addEventListener("click", function (e) {
         e.preventDefault();
         stretchBg.style.display = "none";
@@ -326,9 +282,6 @@
         hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/aadigenix_1.png')";
         hero.style.backgroundSize = "cover";
         hero.style.backgroundPosition = "center center";
-        // Hide overlay in case it was up
-        fadeOverlay.classList.remove("fade-in");
-        fadeOverlay.classList.remove("fade-out");
       });
     });
   </script>
