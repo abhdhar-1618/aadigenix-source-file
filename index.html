@@ -24,6 +24,7 @@
       top: 0;
       left: 0;
       z-index: -1;
+      /* Ensure background below everything */
     }
 
     #intro-video {
@@ -226,6 +227,7 @@
       const stretchBg = document.getElementById("stretch-bg");
       const welcome = document.querySelector(".welcome");
 
+      // Show main content after intro video
       introVideo.addEventListener("ended", function () {
         this.classList.add("hide-video");
         setTimeout(() => {
@@ -238,6 +240,7 @@
         }, 3000);
       });
 
+      // Only run wheel and audio animation on the initial overlay click
       clickOverlay.addEventListener("click", function () {
         clickOverlay.style.display = "none";
         aumAudio.muted = false;
@@ -261,18 +264,19 @@
         });
       });
 
+      // ABOUT: Hide main content, show stretched bg, and bring about section forward
       aboutLink.addEventListener("click", function (e) {
         e.preventDefault();
+        // Hide only what's needed for about, show stretched background
         heroVideo.pause();
         heroVideo.style.opacity = 0;
         welcome.style.display = "none";
         logo.style.display = "none";
-        // Show the stretched background image
         stretchBg.style.display = "block";
-        // Remove hero's background image so only stretched bg shows
         hero.style.backgroundImage = "none";
       });
 
+      // HOME: Restore home screen, logo, welcome, hero bg, HIDE stretched background, DO NOT animate logo!
       homeLink.addEventListener("click", function (e) {
         e.preventDefault();
         stretchBg.style.display = "none";
@@ -282,6 +286,7 @@
         hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/aadigenix_1.png')";
         hero.style.backgroundSize = "cover";
         hero.style.backgroundPosition = "center center";
+        // Do NOT rotate or animate logo here
       });
     });
   </script>
