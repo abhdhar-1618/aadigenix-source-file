@@ -159,36 +159,16 @@
       50% { opacity: 1; }
       100% { opacity: 0.8; }
     }
-
-    /* About section autofit image */
-    #about-bg-img {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 50;
-      object-fit: contain;
-      background: black;
-      pointer-events: none;
-    }
   </style>
 </head>
 <body>
-  <!-- About background image for autofit, hidden by default -->
-  <img id="about-bg-img"
-    src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/Scroll.png"
-    alt="Scroll Background" />
-
   <video id="intro-video" autoplay muted playsinline>
     <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/4dda7b09ddd30b92aca4b091cc4162f1fc4fba85/Aadigenix%20rectified%20Intro%20video.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 
   <audio id="aum-audio" preload="auto">
-    <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/82e7377fadf5b621d8e9bf406221bdf4efe/synced_aum_futuristic.ogg" type="audio/ogg" />
-    <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/synced_aum_futuristic.mp3" type="audio/mp3" />
+    <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/82e7377fadf5b621d8e9bf406221bdf4d1eb4efe/synced_aum_futuristic.ogg" type="audio/ogg" />
     Your browser does not support the audio element.
   </audio>
 
@@ -197,7 +177,7 @@
   <div id="main-content">
     <div class="welcome">प्राचीनानां निनादः, भविष्यस्य संरचना</div>
     <div class="nav">
-      <a href="#" id="home-link">Home</a>
+      <a href="#">Home</a>
       <a href="#" id="about-link">About</a>
       <a href="#">Gallery</a>
       <a href="#">Contact</a>
@@ -209,7 +189,7 @@
         Your browser does not support the video tag.
       </video>
       <h1></h1>
-      <div style="position: absolute; bottom: 3%; left: 50%; transform: translate(-50%, 0); text-align: center;">
+      <div id="logo-container" style="position: absolute; bottom: 3%; left: 50%; transform: translate(-50%, 0); text-align: center;">
         <img src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/processed_logo_circular.png" alt="AadiGenix Logo" id="logo" class="logo" />
       </div>
     </div>
@@ -223,13 +203,18 @@
       const mainContent = document.getElementById("main-content");
       const heroVideo = document.getElementById("hero-video");
       const logo = document.getElementById("logo");
+      const logoContainer = document.getElementById("logo-container");
       const aumAudio = document.getElementById("aum-audio");
       const clickOverlay = document.getElementById("click-overlay");
       const aboutLink = document.getElementById("about-link");
-      const homeLink = document.getElementById("home-link");
       const hero = document.getElementById("hero");
-      const aboutBgImg = document.getElementById("about-bg-img");
-      const welcome = document.querySelector(".welcome");
+      const welcomeText = document.querySelector(".welcome");
+
+      aumAudio.muted = true;
+      aumAudio.play().then(() => {
+        aumAudio.pause();
+        aumAudio.currentTime = 0;
+      });
 
       introVideo.addEventListener("ended", function () {
         this.classList.add("hide-video");
@@ -243,22 +228,20 @@
         }, 3000);
       });
 
-      // Only play audio after overlay is clicked, with muted = false set BEFORE play()
       clickOverlay.addEventListener("click", function () {
         clickOverlay.style.display = "none";
-        // Unmute first
+
         aumAudio.muted = false;
         aumAudio.currentTime = 0;
-        // Play (should work on all browsers after user gesture)
-        aumAudio.play().catch(err => {
-          alert("Audio could not play due to browser restrictions or file error.");
-          console.log("Audio blocked:", err);
-        });
+        aumAudio.play().catch(err => console.log("Audio blocked:", err));
         logo.classList.add("rotate-during-audio");
+
         setTimeout(() => {
           logo.classList.remove("rotate-during-audio");
+
           heroVideo.style.opacity = 1;
           heroVideo.currentTime = 0;
+
           setTimeout(() => {
             heroVideo.play();
             setTimeout(() => {
@@ -269,28 +252,25 @@
         }, 11000);
       });
 
-      // About link shows the full viewport image autofit
+      // Updated About button behavior
       aboutLink.addEventListener("click", function (e) {
         e.preventDefault();
+        
+        // Pause and hide the hero video
         heroVideo.pause();
         heroVideo.style.opacity = 0;
-        welcome.style.display = "none";
-        logo.style.display = "none";
-        aboutBgImg.style.display = "block";
-        hero.style.background = "black";
-        hero.style.backgroundImage = "none";
-      });
 
-      // Home link restores everything
-      homeLink.addEventListener("click", function (e) {
-        e.preventDefault();
-        aboutBgImg.style.display = "none";
-        welcome.style.display = "block";
-        logo.style.display = "block";
-        hero.style.background = "";
-        hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/aadigenix_1.png')";
-        hero.style.backgroundSize = "cover";
+        // Hide welcome text and logo
+        welcomeText.style.display = "none";
+        logoContainer.style.display = "none";
+
+        // Change hero background to Scroll.png fitted properly
+        hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_4.png')";
+        hero.style.backgroundSize = "contain"; // contain instead of cover
         hero.style.backgroundPosition = "center center";
+        hero.style.backgroundRepeat = "no-repeat";
+        hero.style.backgroundAttachment = "fixed";
+        hero.style.backgroundColor = "black"; // optional fallback color
       });
     });
   </script>
