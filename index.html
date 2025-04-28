@@ -15,6 +15,17 @@
       overflow: hidden;
     }
 
+    #stretch-bg {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      object-fit: fill;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
     #intro-video {
       position: fixed;
       top: 0;
@@ -162,6 +173,9 @@
   </style>
 </head>
 <body>
+  <!-- Fullscreen stretched background image (hidden by default) -->
+  <img id="stretch-bg" src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_3.png"
+       alt="Stretched Background" /> 
   <video id="intro-video" autoplay muted playsinline>
     <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/4dda7b09ddd30b92aca4b091cc4162f1fc4fba85/Aadigenix%20rectified%20Intro%20video.mp4" type="video/mp4" />
     Your browser does not support the video tag.
@@ -228,43 +242,48 @@
 
       clickOverlay.addEventListener("click", function () {
         clickOverlay.style.display = "none";
-
         aumAudio.muted = false;
         aumAudio.currentTime = 0;
-        aumAudio.play().catch(err => console.log("Audio blocked:", err));
         logo.classList.add("rotate-during-audio");
-
-        setTimeout(() => {
-          logo.classList.remove("rotate-during-audio");
-
-          heroVideo.style.opacity = 1;
-          heroVideo.currentTime = 0;
-
+        aumAudio.play().then(() => {
           setTimeout(() => {
-            heroVideo.play();
+            logo.classList.remove("rotate-during-audio");
+            heroVideo.style.opacity = 1;
+            heroVideo.currentTime = 0;
             setTimeout(() => {
-              heroVideo.pause();
-              heroVideo.style.opacity = 0;
-            }, 4000);
-          }, 300);
-        }, 11000);
+              heroVideo.play();
+              setTimeout(() => {
+                heroVideo.pause();
+                heroVideo.style.opacity = 0;
+              }, 4000);
+            }, 300);
+          }, 11000);
+        }).catch(err => {
+          logo.classList.remove("rotate-during-audio");
+        });
       });
 
-      // Activate About link
       aboutLink.addEventListener("click", function (e) {
         e.preventDefault();
         heroVideo.pause();
         heroVideo.style.opacity = 0;
-
-      // Hide welcome text and logo
-        document.querySelector(".welcome").style.display = "none";
+        welcome.style.display = "none";
         logo.style.display = "none";
-        hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_3.png')";
+        // Show the stretched background image
+        stretchBg.style.display = "block";
+        // Remove hero's background image so only stretched bg shows
+        hero.style.backgroundImage = "none";
+      });
+
+      homeLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        stretchBg.style.display = "none";
+        welcome.style.display = "block";
+        logo.style.display = "block";
+        hero.style.background = "";
+        hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/aadigenix_1.png')";
         hero.style.backgroundSize = "cover";
         hero.style.backgroundPosition = "center center";
-        hero.style.backgroundRepeat = "no-repeat";
-        hero.style.backgroundAttachment = "fixed";
-        hero.style.backgroundColor = "black"; /* background behind image if needed */
       });
     });
   </script>
