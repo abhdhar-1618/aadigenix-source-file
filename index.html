@@ -175,14 +175,15 @@
 <body>
   <!-- Fullscreen stretched background image (hidden by default) -->
   <img id="stretch-bg" src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_3.png"
-       alt="Stretched Background" /> 
+       alt="Stretched Background" />
+
   <video id="intro-video" autoplay muted playsinline>
     <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/4dda7b09ddd30b92aca4b091cc4162f1fc4fba85/Aadigenix%20rectified%20Intro%20video.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 
   <audio id="aum-audio" preload="auto">
-    <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/82e7377fadf5b621d8e9bf406221bdf4d1eb4efe/synced_aum_futuristic.ogg" type="audio/ogg" />
+    <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/82e7377fadf5b621d8e9bf406221bdf4efe/synced_aum_futuristic.ogg" type="audio/ogg" />
     Your browser does not support the audio element.
   </audio>
 
@@ -191,7 +192,7 @@
   <div id="main-content">
     <div class="welcome">प्राचीनानां निनादः, भविष्यस्य संरचना</div>
     <div class="nav">
-      <a href="#">Home</a>
+      <a href="#" id="home-link">Home</a>
       <a href="#" id="about-link">About</a>
       <a href="#">Gallery</a>
       <a href="#">Contact</a>
@@ -220,13 +221,10 @@
       const aumAudio = document.getElementById("aum-audio");
       const clickOverlay = document.getElementById("click-overlay");
       const aboutLink = document.getElementById("about-link");
+      const homeLink = document.getElementById("home-link");
       const hero = document.getElementById("hero");
-
-      aumAudio.muted = true;
-      aumAudio.play().then(() => {
-        aumAudio.pause();
-        aumAudio.currentTime = 0;
-      });
+      const stretchBg = document.getElementById("stretch-bg");
+      const welcome = document.querySelector(".welcome");
 
       introVideo.addEventListener("ended", function () {
         this.classList.add("hide-video");
