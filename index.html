@@ -24,7 +24,6 @@
       top: 0;
       left: 0;
       z-index: -1;
-      /* Ensure background below everything */
     }
 
     #intro-video {
@@ -111,6 +110,7 @@
       z-index: 0;
       opacity: 0;
       transition: opacity 1s ease-in-out;
+      pointer-events: none;
     }
 
     .hero h1 {
@@ -142,6 +142,15 @@
     @keyframes rotateAudio {
       from { transform: rotate(0deg); }
       to { transform: rotate(720deg); }
+    }
+
+    .screen-fade {
+      animation: screenFadeIn 1.5s forwards;
+    }
+
+    @keyframes screenFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     #click-overlay {
@@ -213,6 +222,8 @@
     <div class="footer">&copy; 2025 AadiGenix. All rights reserved.</div>
   </div>
 
+  <div id="about-fade-overlay" style="display:none; position:fixed; left:0; top:0; width:100vw; height:100vh; z-index:1000; pointer-events:none;"></div>
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const introVideo = document.getElementById("intro-video");
@@ -226,8 +237,10 @@
       const hero = document.getElementById("hero");
       const stretchBg = document.getElementById("stretch-bg");
       const welcome = document.querySelector(".welcome");
+      const aboutFade = document.getElementById("about-fade-overlay");
 
-      // Show main content after intro video
+      let wheelRunning = false;
+
       introVideo.addEventListener("ended", function () {
         this.classList.add("hide-video");
         setTimeout(() => {
@@ -240,43 +253,61 @@
         }, 3000);
       });
 
-      // Only run wheel and audio animation on the initial overlay click
       clickOverlay.addEventListener("click", function () {
         clickOverlay.style.display = "none";
         aumAudio.muted = false;
         aumAudio.currentTime = 0;
         logo.classList.add("rotate-during-audio");
+        wheelRunning = true;
         aumAudio.play().then(() => {
           setTimeout(() => {
             logo.classList.remove("rotate-during-audio");
-            heroVideo.style.opacity = 1;
-            heroVideo.currentTime = 0;
+            // Fade in screen overlay after wheel stops
+            aboutFade.style.background = "rgba(0,0,0,0.55)";
+            aboutFade.style.display = "block";
+            aboutFade.classList.add("screen-fade");
             setTimeout(() => {
-              heroVideo.play();
+              aboutFade.style.display = "none";
+              aboutFade.classList.remove("screen-fade");
+              heroVideo.style.opacity = 1;
+              heroVideo.currentTime = 0;
               setTimeout(() => {
-                heroVideo.pause();
-                heroVideo.style.opacity = 0;
-              }, 4000);
-            }, 300);
+                heroVideo.play();
+                setTimeout(() => {
+                  heroVideo.pause();
+                  heroVideo.style.opacity = 0;
+                  wheelRunning = false;
+                }, 4000);
+              }, 300);
+            }, 1500);
           }, 11000);
         }).catch(err => {
           logo.classList.remove("rotate-during-audio");
+          wheelRunning = false;
         });
       });
 
-      // ABOUT: Hide main content, show stretched bg, and bring about section forward
+      // ABOUT: Hide home stuff, show stretched background and fade in
       aboutLink.addEventListener("click", function (e) {
         e.preventDefault();
-        // Hide only what's needed for about, show stretched background
+        // Hide only what's needed for about, show stretched background and fade overlay
         heroVideo.pause();
         heroVideo.style.opacity = 0;
         welcome.style.display = "none";
         logo.style.display = "none";
         stretchBg.style.display = "block";
         hero.style.backgroundImage = "none";
+        // Animate screen fade-in for about
+        aboutFade.style.background = "rgba(0,0,0,0.55)";
+        aboutFade.style.display = "block";
+        aboutFade.classList.add("screen-fade");
+        setTimeout(() => {
+          aboutFade.style.display = "none";
+          aboutFade.classList.remove("screen-fade");
+        }, 1500);
       });
 
-      // HOME: Restore home screen, logo, welcome, hero bg, HIDE stretched background, DO NOT animate logo!
+      // HOME: Restore home screen, logo, welcome, hero bg, hide stretched background, DO NOT animate logo!
       homeLink.addEventListener("click", function (e) {
         e.preventDefault();
         stretchBg.style.display = "none";
@@ -286,6 +317,8 @@
         hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/aadigenix_1.png')";
         hero.style.backgroundSize = "cover";
         hero.style.backgroundPosition = "center center";
+        aboutFade.style.display = "none";
+        aboutFade.classList.remove("screen-fade");
         // Do NOT rotate or animate logo here
       });
     });
