@@ -58,11 +58,14 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(8px);     /* Creates glass effect */
+      -webkit-backdrop-filter: blur(8px); /* Safari support */
       padding: 10px;
       display: flex;
       justify-content: center;
       z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* optional glass-like edge */
     }
 
     .nav a {
