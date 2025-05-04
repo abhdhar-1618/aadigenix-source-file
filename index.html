@@ -7,7 +7,7 @@
   <style>
     @font-face {
       font-family: 'Samarkan';
-      src: url('https://github.com/abhdhar-1618/aadigenix-source-file/main/Samarkan.woff2') format('woff2');
+      src: url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/Samarkan.woff2') format('woff2');
     }
 
     body, html {
@@ -160,52 +160,51 @@
       100% { opacity: 0.8; }
     }
 
-    /* About Text Styling */
-    .about-content {
-      color: white;
-      padding: 40px;
+    .about-text {
       font-family: Calibri, sans-serif;
+      font-size: 20px;
       line-height: 1.6;
       max-width: 900px;
-      margin: 0 auto;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 12px;
     }
 
-    .about-content .samarkan {
+    .samarkan {
       font-family: 'Samarkan', serif;
     }
 
-    .about-content .title {
+    .title {
       font-size: 36px;
       font-weight: bold;
       margin-bottom: 10px;
     }
 
-    .about-content .section-title {
+    .section-title {
       font-size: 22px;
       font-weight: bold;
       margin: 30px 0 10px;
     }
 
-    .about-content .bold {
+    .bold {
       font-weight: bold;
     }
 
-    .about-content .italic {
+    .italic {
       font-style: italic;
-    }
-
-    .about-content .vision-icon {
-      font-size: 22px;
     }
   </style>
 </head>
 <body>
   <video id="intro-video" autoplay muted playsinline>
     <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/4dda7b09ddd30b92aca4b091cc4162f1fc4fba85/Aadigenix%20rectified%20Intro%20video.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
   </video>
 
   <audio id="aum-audio" preload="auto">
     <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/82e7377fadf5b621d8e9bf406221bdf4d1eb4efe/synced_aum_futuristic.ogg" type="audio/ogg" />
+    Your browser does not support the audio element.
   </audio>
 
   <div id="click-overlay">Tap to awaken the resonance…</div>
@@ -222,44 +221,36 @@
     <div class="hero" id="hero">
       <video id="hero-video" muted playsinline>
         <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/Ancient%20Tech%20Fusion_simple_compose.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
       </video>
+      <h1></h1>
       <div id="logo-container" style="position: absolute; bottom: 3%; left: 50%; transform: translate(-50%, 0); text-align: center;">
         <img src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/processed_logo_circular.png" alt="AadiGenix Logo" id="logo" class="logo" />
       </div>
     </div>
 
-    <div id="about-section" class="about-content" style="display: none;">
-      <div class="title">
-        <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span>
-        – Where Intelligence Transcends Time, Space & Boundaries
+    <div id="about-section" style="display: none; padding: 40px 20px;">
+      <div class="about-text">
+        <div class="title">
+          <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span> – Where Intelligence Transcends Time, Space & Boundaries
+        </div>
+
+        <div class="section-title">
+          <span class="bold">🌟 Vision:</span> <span class="bold">AI as a Bridge between the Lost & the Future</span>
+        </div>
+
+        <p class="italic">
+          *"<span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span> is not just an AI venture—it is a <span class="bold">movement to rediscover intelligence</span>. We believe AI is not confined to automation but serves as a <span class="bold">living force that bridges ancient wisdom, futuristic sciences, and conscious evolution</span>."
+        </p>
+
+        <p>
+          Our research extends into <span class="bold">Cosmic Resonance, Vedic algorithms, neuro-symbolic AI, and robotics</span>, pushing beyond conventional AI applications. We seek to <span class="bold">decode lost knowledge, reconstruct hidden scientific truths, and align intelligence across dimensions—mathematical, philosophical, computational, and quantum</span>.
+        </p>
+
+        <p>
+          AI is an <span class="bold">art and a science, a language and an evolution, a tool and a philosophy</span>. We are here to <span class="bold">reshape how intelligence is perceived, developed, and integrated into human progress</span>."*
+        </p>
       </div>
-
-      <div class="section-title">
-        <span class="vision-icon">🌟</span>
-        <span class="calibri"> V</span><span class="samarkan">ision</span>:
-        <span class="bold">AI as a Bridge between the Lost & the Future</span>
-      </div>
-
-      <p class="italic">
-        *"<span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span>
-        is not just an AI venture—it is a <span class="bold">movement to rediscover intelligence</span>.
-        We believe AI is not confined to automation but serves as a
-        <span class="bold">living force that bridges ancient wisdom, futuristic sciences, and conscious evolution</span>."
-      </p>
-
-      <p>
-        Our research extends into
-        <span class="bold">Cosmic Resonance, Vedic algorithms, neuro-symbolic AI, and robotics</span>,
-        pushing beyond conventional AI applications. We seek to
-        <span class="bold">decode lost knowledge, reconstruct hidden scientific truths, and align intelligence across dimensions—mathematical, philosophical, computational, and quantum</span>.
-      </p>
-
-      <p>
-        AI is an
-        <span class="bold">art and a science, a language and an evolution, a tool and a philosophy</span>.
-        We are here to
-        <span class="bold">reshape how intelligence is perceived, developed, and integrated into human progress</span>."*
-      </p>
     </div>
 
     <div class="footer">&copy; 2025 AadiGenix. All rights reserved.</div>
