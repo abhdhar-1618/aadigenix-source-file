@@ -9,7 +9,7 @@
       font-family: 'Samarkan';
       src: url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/Samarkan.woff2') format('woff2');
     }
-
+  
     body, html {
       margin: 0;
       padding: 0;
@@ -19,7 +19,7 @@
       background: black;
       overflow: hidden;
     }
-
+  
     #intro-video {
       position: fixed;
       top: 0;
@@ -29,19 +29,19 @@
       object-fit: contain;
       z-index: 10;
     }
-
+  
     .hide-video {
       opacity: 0;
       transition: opacity 1.5s ease-out;
     }
-
+  
     #main-content {
       display: none;
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
       text-align: center;
     }
-
+  
     .welcome {
       position: absolute;
       top: 55%;
@@ -49,7 +49,7 @@
       transform: translate(-50%, -50%);
       font-size: 32px;
       font-weight: bold;
-      color: white;
+      color: #331400;
       z-index: 2;
       padding: 0 10px;
       white-space: nowrap;
@@ -58,31 +58,31 @@
       text-align: center;
       -webkit-overflow-scrolling: touch;
     }
-
+  
     .nav {
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(0, 0, 0, 0.6);
       padding: 10px;
       display: flex;
       justify-content: center;
       z-index: 100;
     }
-
+  
     .nav a {
-      color: white;
+      color: #331400;
       text-decoration: none;
       margin: 0 20px;
       font-size: 18px;
       transition: color 0.3s ease-in-out;
     }
-
+  
     .nav a:hover {
       color: #ffdd44;
       text-decoration: underline;
     }
-
+  
     .hero {
       position: relative;
       height: 100vh;
@@ -94,7 +94,7 @@
       align-items: center;
       transition: background-image 1s ease-in-out;
     }
-
+  
     #hero-video {
       position: absolute;
       top: 0;
@@ -106,14 +106,14 @@
       opacity: 0;
       transition: opacity 1s ease-in-out;
     }
-
+  
     .logo {
       width: 200px;
       height: auto;
       position: relative;
       z-index: 2;
     }
-
+  
     .footer {
       text-align: center;
       padding: 20px;
@@ -121,17 +121,17 @@
       font-size: 16px;
       color: white;
     }
-
+  
     .rotate-during-audio {
       animation: rotateAudio linear;
       animation-duration: 11s;
     }
-
+  
     @keyframes rotateAudio {
       from { transform: rotate(0deg); }
       to { transform: rotate(720deg); }
     }
-
+  
     #click-overlay {
       position: fixed;
       top: 0;
@@ -139,7 +139,7 @@
       width: 100vw;
       height: 100vh;
       background: rgba(0, 0, 0, 0.92);
-      color: white;
+      color: #331400;
       display: none;
       align-items: center;
       justify-content: center;
@@ -153,49 +153,73 @@
       backdrop-filter: blur(6px);
       animation: pulse 1.5s infinite;
     }
-
+  
     @keyframes pulse {
       0% { opacity: 0.8; }
       50% { opacity: 1; }
       100% { opacity: 0.8; }
     }
-
+  
     .about-text {
       font-family: Calibri, sans-serif;
-      font-size: 20px;
+      font-size: 18px;
       line-height: 1.6;
-      max-width: 900px;
-      width: 90%;
-      box-sizing: border-box;
-      margin: 0 auto;
-      color:#331400;
-      background-color: rgba(0, 0, 0, 0.1);
-      padding: 15px;
+      max-width: 90vw;
+      color: #331400;
+      background-color: rgba(255, 255, 255, 0.65);
+      padding: 20px;
       border-radius: 12px;
+      margin: auto;
     }
-
+  
     .samarkan {
       font-family: 'Samarkan', serif;
     }
-
+  
     .title {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: bold;
       margin-bottom: 10px;
     }
-
+  
     .section-title {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: bold;
       margin: 30px 0 10px;
     }
-
+  
     .bold {
       font-weight: bold;
     }
-
+  
     .italic {
       font-style: italic;
+    }
+  
+    @media screen and (max-width: 768px) {
+      .about-text {
+        font-size: 16px;
+        padding: 15px;
+        max-width: 90vw;
+      }
+  
+      .nav a {
+        margin: 0 10px;
+        font-size: 16px;
+      }
+  
+      .welcome {
+        font-size: 20px;
+        top: 50%;
+      }
+  
+      .logo {
+        width: 150px;
+      }
+  
+      .title {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
