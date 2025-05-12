@@ -160,6 +160,14 @@
       100% { opacity: 0.8; }
     }
 
+    .about-subnav {
+    display: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    }
+
     .about-text {
       font-family: Calibri, sans-serif;
       font-size: 20px;
@@ -235,39 +243,59 @@
       </div>
     </div>
 
-    <div id="about-section" style="display: none; padding: 40px 20px; position: absolute; top: 10%; left: 50%; transform: translateX(-50%); max-height: 80%; overflow-y: auto;">
-      <div class="about-text">
-        <div class="title">
-        <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span>
-        – Where Intelligence Transcends Time, Space & Boundaries
-      </div>
+<!-- Updated About Section (HTML Part Only) -->
+<div id="about-section" style="display: none; padding: 40px 20px; position: absolute; top: 10%; left: 50%; transform: translateX(-50%); max-height: 80%; overflow-y: auto;">
+  <div class="about-subnav" style="margin-bottom: 20px; text-align: center; display: none;">
+    <button data-id="vision">Vision</button>
+    <button data-id="whatwedo">What We Do</button>
+    <button data-id="howwework">How We Work</button>
+    <button data-id="aadigenixway">The AadiGenix Way</button>
+  </div>
 
-        <div class="section-title">
-          <span class="bold">🌟 Vision:</span> <span class="bold">AI as a Bridge between the Lost & the Future</span>
-        </div>
-
-        <p class="italic">
-          <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span>
-          is not just an Aì venture—it is a <span class="bold">movement to rediscover intelligence</span>.
-          We believe Aì is not confined to automation but serves as a 
-          <span class="bold">living force that bridges ancient wisdom, futuristic sciences, and conscious evolution</span>.
-        </p>
-      
-        <p>
-          Our research extends into 
-          <span class="bold">Cosmic Resonance, Vedic algorithms, neuro-symbolic Aì, and robotics</span>,
-          pushing beyond conventional Aì applications. We seek to 
-          <span class="bold">decode lost knowledge, reconstruct hidden scientific truths, and align intelligence across dimensions—mathematical, philosophical, computational, and quantum.</span>
-        </p>
-      
-        <p>
-          Aì is an 
-          <span class="bold">art and a science, a language and an evolution, a tool and a philosophy</span>.
-          We are here to 
-          <span class="bold">reshape how intelligence is perceived, developed, and integrated into human progress.</span>
-        </p>
-      </div>
+  <div id="vision" class="about-text" style="display: none;">
+    <div class="title">
+      <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span>
+      – Where Intelligence Transcends Time, Space & Boundaries
     </div>
+    <div class="section-title">
+      <span class="bold">🌟 Vision:</span> <span class="bold">AI as a Bridge between the Lost & the Future</span>
+    </div>
+    <p class="italic">
+      <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span>
+      is not just an AI venture—it is a <span class="bold">movement to rediscover intelligence</span>.
+      We believe AI is not confined to automation but serves as a 
+      <span class="bold">living force that bridges ancient wisdom, futuristic sciences, and conscious evolution</span>.
+    </p>
+    <p>
+      Our research extends into 
+      <span class="bold">Cosmic Resonance, Vedic algorithms, neuro-symbolic AI, and robotics</span>,
+      pushing beyond conventional AI applications. We seek to 
+      <span class="bold">decode lost knowledge, reconstruct hidden scientific truths, and align intelligence across dimensions—mathematical, philosophical, computational, and quantum.</span>
+    </p>
+    <p>
+      AI is an 
+      <span class="bold">art and a science, a language and an evolution, a tool and a philosophy</span>.
+      We are here to 
+      <span class="bold">reshape how intelligence is perceived, developed, and integrated into human progress.</span>
+    </p>
+  </div>
+
+  <div id="whatwedo" class="about-text" style="display: none;">
+    <div class="title">What We Do</div>
+    <p>We engineer knowledge across symbolic AI, Vedic systems, and next-gen cognition models.</p>
+  </div>
+
+  <div id="howwework" class="about-text" style="display: none;">
+    <div class="title">How We Work</div>
+    <p>Our interdisciplinary teams blend algorithms, art, and awareness into intelligence flows.</p>
+  </div>
+
+  <div id="aadigenixway" class="about-text" style="display: none;">
+    <div class="title">The AadiGenix Way</div>
+    <p>Building an intuitive, ethical, spiritually aligned civilization with conscious technology.</p>
+  </div>
+</div>
+      
 
     <div class="footer">&copy; 2025 AadiGenix. All rights reserved.</div>
   </div>
@@ -326,8 +354,14 @@
         }, 11000);
       });
 
+      let aboutOpened = false;
+
+      let aboutClickCount = 0;
+
       aboutLink.addEventListener("click", function (e) {
         e.preventDefault();
+        aboutClickCount++;
+
         heroVideo.pause();
         heroVideo.style.opacity = 0;
         welcomeText.style.display = "none";
@@ -339,7 +373,37 @@
         hero.style.backgroundAttachment = "fixed";
         hero.style.backgroundColor = "black";
         aboutSection.style.display = "block";
+
+        // Hide all about-text sections
+        document.querySelectorAll('.about-text').forEach(el => {
+          el.style.display = 'none';
+        });
+
+        // Only show buttons on second click
+        if (aboutClickCount === 2) {
+          const subnav = document.querySelector('.about-subnav');
+          subnav.style.display = 'flex';
+
+          // Manually bind click events to buttons after they become visible
+          subnav.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function () {
+              const id = this.getAttribute('data-id');
+              showSubsection(id);
+            });
+            button.removeAttribute('onclick'); // prevent double firing
+          });
+        }
       });
+
+      function showSubsection(id) {
+        document.querySelectorAll('.about-text').forEach(el => {
+          el.style.display = 'none';
+        });
+        const target = document.getElementById(id);
+        if (target) target.style.display = 'block';
+      }
+
+
     });
   </script>
 </body>
