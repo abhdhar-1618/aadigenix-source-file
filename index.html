@@ -442,42 +442,46 @@
 
       let aboutOpened = false;
 
-      let aboutClickCount = 0;
+      let aboutFirstOpened = false;
 
       aboutLink.addEventListener("click", function (e) {
         e.preventDefault();
-        aboutClickCount++;
 
-        heroVideo.pause();
-        heroVideo.style.opacity = 0;
-        welcomeText.style.display = "none";
-        logoContainer.style.display = "none";
-        hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_7.png')";
-        hero.style.backgroundSize = "contain";
-        hero.style.backgroundPosition = "center center";
-        hero.style.backgroundRepeat = "no-repeat";
-        hero.style.backgroundAttachment = "fixed";
-        hero.style.backgroundColor = "black";
-        aboutSection.style.display = "block";
+        // First time setup
+        if (!aboutFirstOpened) {
+          heroVideo.pause();
+          heroVideo.style.opacity = 0;
+          welcomeText.style.display = "none";
+          logoContainer.style.display = "none";
+          hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_7.png')";
+          hero.style.backgroundSize = "contain";
+          hero.style.backgroundPosition = "center center";
+          hero.style.backgroundRepeat = "no-repeat";
+          hero.style.backgroundAttachment = "fixed";
+          hero.style.backgroundColor = "black";
+          aboutSection.style.display = "block";
 
-        // Hide all about-text sections
+          aboutFirstOpened = true;
+        }
+
+        // Always hide all text
         document.querySelectorAll('.about-text').forEach(el => {
           el.style.display = 'none';
         });
 
-        // Only show buttons on second click
-        if (aboutClickCount === 2) {
-          const subnav = document.querySelector('.about-subnav');
-          subnav.style.display = 'flex';
+        // Always show dropdown
+        const subnav = document.querySelector('.about-subnav');
+        subnav.style.display = 'flex';
 
-          // Manually bind click events to buttons after they become visible
+        // Attach listeners only once
+        if (!subnav.dataset.listenersAttached) {
           subnav.querySelectorAll('button').forEach(button => {
             button.addEventListener('click', function () {
               const id = this.getAttribute('data-id');
               showSubsection(id);
             });
-            button.removeAttribute('onclick'); // prevent double firing
           });
+          subnav.dataset.listenersAttached = 'true';
         }
       });
 
