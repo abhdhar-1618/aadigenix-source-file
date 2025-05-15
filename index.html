@@ -324,12 +324,12 @@
 
     <div id="mission" class="about-text" style="display: none;">
     <div class="title">
-         <span class="calibri">M</span><span class="samarkan">ission</span>: Expanding the Horizons of <span class="samarkan">A</span><span class="calibri">ì</span>
+         <span class="calibri">M</span><span class="samarkan">ission</span>: Expanding the Horizons of A</span><span class="samarkan">I</span><span class="calibri"></span>
     </div>
 
     <p>At <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span>, we are on a mission to:</p>
 
-    <p><strong>✤ <span class="bold">Reconstruct Intelligence from Lost Civilizations</span> – We integrate <span class="samarkan">A</span><span class="calibri">ì</span> with 
+    <p><strong>✤ <span class="bold">Reconstruct Intelligence from Lost Civilizations</span> – We integrate A</span><span class="samarkan">I</span><span class="calibri"></span> with 
         <span class="bold">ancient scriptures, Sanskrit NLP, Vedic mathematics, and cosmic structures</span> to extract 
         <span class="bold">scientific and computational insights lost in time</span>.
     </p>
@@ -340,8 +340,8 @@
     </p>
 
     <p><strong>✤ <span class="bold">Evolve Aì from Machine Learning to Conscious Learning</span> – Our work in 
-        <span class="bold">Cosmic Resonance & Neuro</span><span class="samarkan">A</span><span class="calibri">ì</span> 
-        pushes <span class="samarkan">A</span><span class="calibri">ì</span> 
+        <span class="bold">Cosmic Resonance & Neuro</span>A</span><span class="samarkan">I</span><span class="calibri"></span> 
+        pushes A</span><span class="samarkan">I</span><span class="calibri"></span> 
         <span class="bold">beyond deep learning, into self-adaptive intelligence that understands context, thought patterns, and cognitive evolution</span>.
     </p>
 
@@ -569,6 +569,8 @@
         aboutSection.style.display = "none";
         document.querySelectorAll('.about-text').forEach(el => el.style.display = 'none');
         document.querySelector('.about-subnav').style.display = 'none';
+        
+        aboutFirstOpened = false; // ✅ allow About to reopen properly next time
 
         if (hasNavigated) {
             // Remove image and show looping video
