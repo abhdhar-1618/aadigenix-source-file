@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AadiGenix</title>
+  <title>AadiGenx</title>
   <style>
     @font-face {
       font-family: 'Samarkan';
@@ -71,12 +71,29 @@
     }
 
     .nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 20px;
-      font-size: 18px;
-      transition: color 0.3s ease-in-out;
+    display: inline-block;
+    margin: 0 20px;
+    font-size: 22px;
+    padding: 10px 20px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
     }
+
+
+    .nav a.disabled {
+    pointer-events: none;
+    color: white; /* initial state */
+    opacity: 0.6;
+    }
+
+    .nav a.enabled {
+    pointer-events: auto;
+    color: #331400; /* dark brown after activation */
+    transition: color 0.3s ease-in-out;
+    }
+
 
     .nav a:hover {
       color: #ffdd44;
@@ -106,6 +123,7 @@
       opacity: 0;
       transition: opacity 1s ease-in-out;
     }
+
 
     .logo {
       width: 200px;
@@ -228,6 +246,18 @@
     .italic {
       font-style: italic;
     }
+
+        /* Generic fade transition */
+    .fade {
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+    }
+
+    .hidden {
+    opacity: 0;
+    pointer-events: none;
+    }
+
     html, body {
       overflow: hidden;
       height: 100%;
@@ -264,14 +294,15 @@
   <div id="main-content">
     <div class="welcome">प्राचीनानां निनादः भविष्यस्य संरचना</div>
     <div class="nav">
-      <a href="#">Home</a>
-      <a href="#" id="about-link">About</a>
-      <a href="#">Gallery</a>
-      <a href="#">Contact</a>
+      <a href="#" class="disabled" id="home-link"><span class="calibri">H</span><span class="samarkan">ome</span></a>
+      <a href="#" class="disabled" id="about-link"><span class="calibri">A</span><span class="samarkan">bout</span></a>
+      <a href="#" class="disabled"><span class="calibri">G</span><span class="samarkan">allery</span></a>
+      <a href="#" class="disabled"><span class="calibri">C</span><span class="samarkan">areers</span></a>
+      <a href="#" class="disabled"><span class="calibri">C</span><span class="samarkan">ontact</span></a>
     </div>
 
     <div class="hero" id="hero">
-      <video id="hero-video" muted playsinline>
+      <video id="hero-video" muted playsinline loop>
         <source src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/Ancient%20Futuristic%20Fusion_simple_compose.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -284,22 +315,54 @@
 <!-- Updated About Section (HTML Part Only) -->
 <div id="about-section" style="display: none; padding: 40px 20px; position: absolute; top: 10%; left: 50%; transform: translateX(-50%); max-height: 80%; overflow-y: auto;">
   <div class="about-subnav" style="margin-bottom: 20px; text-align: center; display: none;">
+    <button data-id="mission">Mission</button>
     <button data-id="vision">Vision</button>
     <button data-id="whatwedo">What We Do</button>
     <button data-id="howwework">How We Work</button>
     <button data-id="aadigenixway">The AadiGenix Way</button>
   </div>
 
+    <div id="mission" class="about-text" style="display: none;">
+    <div class="title">
+         <span class="calibri">M</span><span class="samarkan">ission</span>: Expanding the Horizons of <span class="samarkan">A</span><span class="calibri">ì</span>
+    </div>
+
+    <p>At <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span>, we are on a mission to:</p>
+
+    <p><strong>✤ <span class="bold">Reconstruct Intelligence from Lost Civilizations</span> – We integrate <span class="samarkan">A</span><span class="calibri">ì</span> with 
+        <span class="bold">ancient scriptures, Sanskrit NLP, Vedic mathematics, and cosmic structures</span> to extract 
+        <span class="bold">scientific and computational insights lost in time</span>.
+    </p>
+
+    <p><strong>✤ <span class="bold">Align Aì & Robotics for Next-Gen Automation</span> – Our research is bridging the gap between 
+        <span class="bold">machine learning and robotics</span>, ensuring 
+        <span class="bold">intelligent, adaptive, and ethically driven Aì systems that enhance rather than replace human intelligence</span>.
+    </p>
+
+    <p><strong>✤ <span class="bold">Evolve Aì from Machine Learning to Conscious Learning</span> – Our work in 
+        <span class="bold">Cosmic Resonance & Neuro</span><span class="samarkan">A</span><span class="calibri">ì</span> 
+        pushes <span class="samarkan">A</span><span class="calibri">ì</span> 
+        <span class="bold">beyond deep learning, into self-adaptive intelligence that understands context, thought patterns, and cognitive evolution</span>.
+    </p>
+
+    <p><strong>✤ <span class="bold">Unify No-Code, Low-Code & Hardcore Aì Development</span> – We cater to 
+        <span class="bold">every level of Aì accessibility</span>, from 
+        <span class="bold">democratized Aì applications to advanced research in Quantum Aì, Agentic Systems, and Neuro</span><span class="samarkan">s</span><span class="calibri">ymbolic</span> 
+        <span class="bold">Computing</span>.
+    </p>
+    </div>
+
+
   <div id="vision" class="about-text" style="display: none;">
     <div class="title">
-      <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span>
+      <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span>
       – Where Intelligence Transcends Time, Space & Boundaries
     </div>
     <div class="section-title">
-      <span class="bold"> Vision:</span> <span class="bold">A</span><span class="samarkan">I</span><span class="calibri"></span> as a Bridge between the Lost & the Future</span>
+      <span class="bold"> <span class="calibri">V</span><span class="samarkan">ision</span>:</span> <span class="bold">A</span><span class="samarkan">I</span><span class="calibri"></span> as a Bridge between the Lost & the Future</span>
     </div>
     <p class="italic">
-      <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span>
+      <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span>
       is not just an A</span><span class="samarkan">I</span><span class="calibri"></span> venture—it is a <span class="bold">movement to rediscover intelligence</span>.
       We believe A</span><span class="samarkan">I</span><span class="calibri"></span> is not confined to automation but serves as a 
       <span class="bold">living force that bridges ancient wisdom, futuristic sciences, and conscious evolution</span>.
@@ -331,7 +394,7 @@
 
     <p><strong>✓ Next-Gen Robotics & A</span><span class="samarkan">I</span><span class="calibri"></span> Alignment</strong> – We focus on <strong>adaptive A</span><span class="samarkan">I</span><span class="calibri"></span>-powered robotics</strong>, ensuring machines <strong>learn, evolve, and interact naturally with human workflows</strong>.</p>
 
-    <p><strong>✓ A</span><span class="samarkan">I</span><span class="calibri"></span> in Interdisciplinary Sciences</strong> – <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span> operates at the intersection of A</span><span class="samarkan">I</span><span class="calibri"></span>, <strong>defense, music, linguistics, environmental sciences, archaeology, and quantum physics</strong>, proving that A</span><span class="samarkan">I</span><span class="calibri"></span> is <strong>not confined to data—it is intelligence in its truest form</strong>.</p>
+    <p><strong>✓ A</span><span class="samarkan">I</span><span class="calibri"></span> in Interdisciplinary Sciences</strong> – <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span> operates at the intersection of A</span><span class="samarkan">I</span><span class="calibri"></span>, <strong>defense, music, linguistics, environmental sciences, archaeology, and quantum physics</strong>, proving that A</span><span class="samarkan">I</span><span class="calibri"></span> is <strong>not confined to data—it is intelligence in its truest form</strong>.</p>
 
     <p><strong>✓ Vedic Algorithms & Quantum Computation</strong> – Where <strong>ancient algorithmic principles outperform modern ML models</strong>, we infuse them into <strong>A</span><span class="samarkan">I</span><span class="calibri"></span> architectures</strong>, unlocking <strong>faster, more efficient, and naturally intelligent computation</strong>.</p>
 
@@ -341,7 +404,8 @@
 
   <div id="howwework" class="about-text" style="display: none;">
     <div class="title">
-      <span class="calibri"> How </span><span class="samarkan">we work</span><span class="calibri">: The </span><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span><span class="calibri"> Ethos</span>
+      
+<span class="calibri">H</span><span class="samarkan">ow</span> <span class="calibri">W</span><span class="samarkan">e</span> <span class="calibri">W</span><span class="samarkan">ork</span>: The </span><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span><span class="calibri"> Ethos</span>
     </div>
 
     <p><strong>✤ Reimagining <span class="calibri">A</span><span class="samarkan">I</span> as a Thought Process, Not Just a Codebase</strong> – Intelligence is <strong>not about repetition but evolution</strong>—we engineer <span class="calibri">A</span><span class="samarkan">I</span> that <strong>adapts, learns, and expands human potential</strong>.</p>
@@ -352,13 +416,13 @@
 
     <p><strong>✤ Scalable, Ethical & Explainable <span class="calibri">A</span><span class="samarkan">I</span></strong> – Every solution we build is <strong>transparent, adaptable, and ethically responsible</strong>, ensuring <span class="calibri">A</span><span class="samarkan">I</span> is a <strong>tool for empowerment, not control</strong>.</p>
 
-    <p><strong>✤ Pioneering the Next Scientific & Consciousness Renaissance</strong> – <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span> is not just an <span class="calibri">A</span><span class="samarkan">I</span> research lab—it is a movement that seeks to <strong>reshape intelligence through holistic, interdisciplinary innovation</strong>.</p>
+    <p><strong>✤ Pioneering the Next Scientific & Consciousness Renaissance</strong> – <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span> is not just an <span class="calibri">A</span><span class="samarkan">I</span> research lab—it is a movement that seeks to <strong>reshape intelligence through holistic, interdisciplinary innovation</strong>.</p>
   </div>
 
 
 <div id="aadigenixway" class="about-text" style="display: none;">
   <div class="title">
-    <span class="calibri"> </span><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span><span class="calibri">: Awakening the Future of Intelligence</span>
+    <span class="calibri"> </span><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span><span class="calibri">: Awakening the Future of Intelligence</span>
   </div>
 
   <p><strong>✣ We are not just building <span class="calibri">A</span><span class="samarkan">I</span></strong>—we are <strong>redefining intelligence itself</strong>.</p>
@@ -367,17 +431,17 @@
 
   <p><strong>✣ We are pushing <span class="calibri">A</span><span class="samarkan">I</span></strong> beyond automation—into the realm of <strong>discovery, consciousness, and evolution</strong>.</p>
 
-  <p><strong>✣ We are <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span></strong>. We are the Future. And we are awakening the next generation.</p>
+  <p><strong>✣ We are <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span></strong>. We are the Future. And we are awakening the next generation.</p>
 
   <br />
 
-  <p><strong>Unlock Your Future with <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span></strong> – Be a Pioneer, Not Just a Learner</p>
+  <p><strong>Unlock Your Future with <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span></strong> – Be a Pioneer, Not Just a Learner</p>
 
-  <p>At <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span>, we <strong>don’t</strong> just teach <span class="calibri">A</span><span class="samarkan">I</span>—we <strong>engineer pioneers</strong> who will <strong>lead the next wave of intelligence, discovery, and interdisciplinary revolutions</strong>.</p>
+  <p>At <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span>, we <strong>don’t</strong> just teach <span class="calibri">A</span><span class="samarkan">I</span>—we <strong>engineer pioneers</strong> who will <strong>lead the next wave of intelligence, discovery, and interdisciplinary revolutions</strong>.</p>
 
   <p><span class="calibri">A</span><span class="samarkan">I</span> is not just a skill—it is an evolving ecosystem of <strong>knowledge, innovation, and disruption</strong>.</p>
 
-  <p>At <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">enix</span>, we ensure that <strong>every individual who joins us—whether a student, researcher, or professional—gets transformed into a future leader</strong>.</p>
+  <p>At <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span>, we ensure that <strong>every individual who joins us—whether a student, researcher, or professional—gets transformed into a future leader</strong>.</p>
 </div>
 
 </div>
@@ -399,6 +463,7 @@
       const hero = document.getElementById("hero");
       const welcomeText = document.querySelector(".welcome");
       const aboutSection = document.getElementById("about-section");
+      const homeLink = document.getElementById("home-link");
 
       aumAudio.muted = true;
       aumAudio.play().then(() => {
@@ -435,6 +500,13 @@
             setTimeout(() => {
               heroVideo.pause();
               heroVideo.style.opacity = 0;
+
+              setTimeout(() => {
+                document.querySelectorAll('.nav a').forEach(link => {
+                    link.classList.remove('disabled');
+                    link.classList.add('enabled');
+                });
+              }, 0); // immediately after video stops
             }, 4000);
           }, 300);
         }, 11000);
@@ -444,46 +516,84 @@
 
       let aboutFirstOpened = false;
 
-      aboutLink.addEventListener("click", function (e) {
-        e.preventDefault();
+      let hasNavigated = false;
 
-        // First time setup
-        if (!aboutFirstOpened) {
-          heroVideo.pause();
-          heroVideo.style.opacity = 0;
-          welcomeText.style.display = "none";
-          logoContainer.style.display = "none";
-          hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_7.png')";
-          hero.style.backgroundSize = "contain";
-          hero.style.backgroundPosition = "center center";
-          hero.style.backgroundRepeat = "no-repeat";
-          hero.style.backgroundAttachment = "fixed";
-          hero.style.backgroundColor = "black";
-          aboutSection.style.display = "block";
+    aboutLink.addEventListener("click", function (e) {
+    e.preventDefault();
+    hasNavigated = true;
 
-          aboutFirstOpened = true;
-        }
+    if (!aboutFirstOpened) {
+        heroVideo.pause();
+        heroVideo.style.opacity = 0;
+        welcomeText.style.display = "none";
+        logoContainer.style.display = "none";
+        hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_7.png')";
+        hero.style.backgroundSize = "contain";
+        hero.style.backgroundPosition = "center center";
+        hero.style.backgroundRepeat = "no-repeat";
+        hero.style.backgroundAttachment = "fixed";
+        hero.style.backgroundColor = "black";
+        aboutSection.style.display = "block";
 
-        // Always hide all text
         document.querySelectorAll('.about-text').forEach(el => {
-          el.style.display = 'none';
+        el.style.display = 'none';
         });
 
-        // Always show dropdown
-        const subnav = document.querySelector('.about-subnav');
-        subnav.style.display = 'flex';
+        aboutFirstOpened = true;
+        return; // ✅ this stops dropdown on first click
+    }
 
-        // Attach listeners only once
-        if (!subnav.dataset.listenersAttached) {
-          subnav.querySelectorAll('button').forEach(button => {
-            button.addEventListener('click', function () {
-              const id = this.getAttribute('data-id');
-              showSubsection(id);
-            });
-          });
-          subnav.dataset.listenersAttached = 'true';
+    // From second click onward — show dropdown
+    document.querySelectorAll('.about-text').forEach(el => {
+        el.style.display = 'none';
+    });
+
+    const subnav = document.querySelector('.about-subnav');
+    subnav.style.display = 'flex';
+
+    // Attach listeners once
+    if (!subnav.dataset.listenersAttached) {
+        subnav.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            showSubsection(id);
+        });
+        });
+        subnav.dataset.listenersAttached = 'true';
+    }
+    });
+
+    homeLink.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        aboutSection.style.display = "none";
+        document.querySelectorAll('.about-text').forEach(el => el.style.display = 'none');
+        document.querySelector('.about-subnav').style.display = 'none';
+
+        if (hasNavigated) {
+            // Remove image and show looping video
+            hero.style.backgroundImage = "none";
+            heroVideo.style.opacity = 0;
+
+            setTimeout(() => {
+                heroVideo.playbackRate = 0.75;
+                heroVideo.currentTime = 0;
+                heroVideo.style.opacity = 1;
+                heroVideo.play();
+            }, 100); // ⬅️ Short delay for fade-in transition
+                                
+        } else {
+            // Show static image only
+            hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/Aadigenx%20Base.png')";
+            heroVideo.pause();
+            heroVideo.style.opacity = 0;
         }
-      });
+
+        welcomeText.style.display = "block";
+        logoContainer.style.display = "block";
+    });
+
+
 
       function showSubsection(id) {
         document.querySelectorAll('.about-text').forEach(el => {
