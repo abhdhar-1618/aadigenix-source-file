@@ -20,6 +20,18 @@
       overflow: hidden;
     }
 
+    
+    .section-center {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+
     #intro-video {
       position: fixed;
       top: 0;
@@ -205,7 +217,6 @@
     }
 
 
-
     .about-text {
       font-family: Calibri, sans-serif;
       font-size: 20px;
@@ -226,6 +237,27 @@
     .samarkan {
       font-family: 'Samarkan', serif;
     }
+
+    /* new part start 22052025 */
+
+    .calibri {
+      font-family: 'Calibri', sans-serif;
+    }
+
+    .gallery-text {
+      font-size: 28px;
+      color: #331400;
+    }
+
+    .gallery-message {
+        font-size: 48px;
+        color: #331400;
+        text-align: center;
+    }
+
+
+
+
 
     .title {
       font-size: 36px;
@@ -296,9 +328,10 @@
     <div class="nav">
       <a href="#" class="disabled" id="home-link"><span class="calibri">H</span><span class="samarkan">ome</span></a>
       <a href="#" class="disabled" id="about-link"><span class="calibri">A</span><span class="samarkan">bout</span></a>
-      <a href="#" class="disabled"><span class="calibri">G</span><span class="samarkan">allery</span></a>
-      <a href="#" class="disabled"><span class="calibri">C</span><span class="samarkan">areers</span></a>
-      <a href="#" class="disabled"><span class="calibri">C</span><span class="samarkan">ontact</span></a>
+      <a href="#" class="disabled" id="gallery-link"><span class="calibri">G</span><span class="samarkan">allery</span></a>
+      <a href="#" class="disabled" id="careers-link"><span class="calibri">C</span><span class="samarkan">areers</span></a>
+      <a href="#" class="disabled" id="contact-link"><span class="calibri">C</span><span class="samarkan">ontact</span></a>
+
     </div>
 
     <div class="hero" id="hero">
@@ -445,7 +478,24 @@
 </div>
 
 </div>
-      
+
+<!-- new part start 22052025 -->
+<div id="gallery-section" class="section-center" style="display: none;">
+  <div class="gallery-message">
+    <span class="calibri">C</span><span class="samarkan">oming</span> <span class="calibri">S</span><span class="samarkan">oon</span>
+  </div>
+</div>
+
+<!-- new part end 22052025 -->
+
+<div id="careers-section" style="display: none;">
+    <div class="gallery-text about-text" style="text-align: center;">
+        <span class="calibri">C</span><span class="samarkan">oming</span> <span class="calibri">S</span><span class="samarkan">oon</span>
+    </div>
+</div>
+
+
+
 
     <div class="footer">&copy; 2025 AadiGenix. All rights reserved.</div>
   </div>
@@ -464,6 +514,30 @@
       const welcomeText = document.querySelector(".welcome");
       const aboutSection = document.getElementById("about-section");
       const homeLink = document.getElementById("home-link");
+      const galleryLink = document.getElementById("gallery-link");
+      const gallerySection = document.getElementById("gallery-section");
+      const careersLink = document.getElementById("careers-link");
+      const careersSection = document.getElementById("careers-section");
+      const contactSection = document.getElementById("contact-section");
+      let galleryFirstOpened = false;
+
+      // ✅ TEMPORARY: Enable nav links for testing
+    //   document.querySelectorAll('.nav a').forEach(link => {
+    //     link.classList.remove('disabled');
+    //     link.classList.add('enabled');
+    //   });
+
+      // Helper to hide all sections
+     function hideAllSections() {
+       aboutSection.style.display = "none";
+       gallerySection.style.display = "none";
+       careersSection.style.display = "none";
+       if (contactSection) contactSection.style.display = "none";
+       document.querySelectorAll('.about-text').forEach(el => el.style.display = 'none');
+       document.querySelector('.about-subnav').style.display = 'none';
+     }
+
+
 
       aumAudio.muted = true;
       aumAudio.play().then(() => {
@@ -518,59 +592,100 @@
 
       let hasNavigated = false;
 
-    aboutLink.addEventListener("click", function (e) {
-    e.preventDefault();
-    hasNavigated = true;
+aboutLink.addEventListener("click", function (e) {
+  e.preventDefault();
+  hasNavigated = true;
 
-    if (!aboutFirstOpened) {
-        heroVideo.pause();
-        heroVideo.style.opacity = 0;
-        welcomeText.style.display = "none";
-        logoContainer.style.display = "none";
-        hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_7.png')";
-        hero.style.backgroundSize = "contain";
-        hero.style.backgroundPosition = "center center";
-        hero.style.backgroundRepeat = "no-repeat";
-        hero.style.backgroundAttachment = "fixed";
-        hero.style.backgroundColor = "black";
-        aboutSection.style.display = "block";
+  hideAllSections();
 
-        document.querySelectorAll('.about-text').forEach(el => {
-        el.style.display = 'none';
-        });
+  heroVideo.pause();
+  heroVideo.style.opacity = 0;
+  welcomeText.style.display = "none";
+  logoContainer.style.display = "none";
+  hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_7.png')";
+  hero.style.backgroundSize = "contain";
+  hero.style.backgroundPosition = "center center";
+  hero.style.backgroundRepeat = "no-repeat";
+  hero.style.backgroundAttachment = "fixed";
+  hero.style.backgroundColor = "black";
+  aboutSection.style.display = "block";
 
-        aboutFirstOpened = true;
-        return; // ✅ this stops dropdown on first click
-    }
+  const subnav = document.querySelector('.about-subnav');
+  subnav.style.display = 'flex';
 
-    // From second click onward — show dropdown
-    document.querySelectorAll('.about-text').forEach(el => {
-        el.style.display = 'none';
+  if (!subnav.dataset.listenersAttached) {
+    subnav.querySelectorAll('button').forEach(button => {
+      button.addEventListener('click', function () {
+        const id = this.getAttribute('data-id');
+        showSubsection(id);
+      });
     });
+    subnav.dataset.listenersAttached = 'true';
+  }
+});
 
-    const subnav = document.querySelector('.about-subnav');
-    subnav.style.display = 'flex';
 
-    // Attach listeners once
-    if (!subnav.dataset.listenersAttached) {
-        subnav.querySelectorAll('button').forEach(button => {
-        button.addEventListener('click', function () {
-            const id = this.getAttribute('data-id');
-            showSubsection(id);
-        });
-        });
-        subnav.dataset.listenersAttached = 'true';
-    }
-    });
+
+    // new part start 22052025//
+
+galleryLink.addEventListener("click", function (e) {
+  e.preventDefault();
+  hasNavigated = true;
+
+  hideAllSections();
+
+  heroVideo.pause();
+  heroVideo.style.opacity = 0;
+  welcomeText.style.display = "none";
+  logoContainer.style.display = "none";
+  hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_7.png')";
+  hero.style.backgroundSize = "contain";
+  hero.style.backgroundPosition = "center center";
+  hero.style.backgroundRepeat = "no-repeat";
+  hero.style.backgroundAttachment = "fixed";
+  hero.style.backgroundColor = "black";
+
+  gallerySection.style.display = "flex";
+  const galleryText = gallerySection.querySelector('.gallery-message');
+  if (galleryText) {
+    galleryText.style.display = "block";
+    galleryText.style.visibility = "visible";
+  }
+});
+
+
+careersLink.addEventListener("click", function (e) {
+  e.preventDefault();
+  hasNavigated = true;
+
+  hideAllSections();
+
+  heroVideo.pause();
+  heroVideo.style.opacity = 0;
+  welcomeText.style.display = "none";
+  logoContainer.style.display = "none";
+
+  hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_7.png')";
+  hero.style.backgroundSize = "contain";
+  hero.style.backgroundPosition = "center center";
+  hero.style.backgroundRepeat = "no-repeat";
+  hero.style.backgroundAttachment = "fixed";
+  hero.style.backgroundColor = "black";
+
+  careersSection.style.display = "block";
+});
+
+
+
 
     homeLink.addEventListener("click", function (e) {
         e.preventDefault();
 
-        aboutSection.style.display = "none";
-        document.querySelectorAll('.about-text').forEach(el => el.style.display = 'none');
-        document.querySelector('.about-subnav').style.display = 'none';
+        hideAllSections();
         
         aboutFirstOpened = false; // ✅ allow About to reopen properly next time
+        galleryFirstOpened = false; // ✅ allow Gallery to reopen properly next time
+
 
         if (hasNavigated) {
             // Remove image and show looping video
