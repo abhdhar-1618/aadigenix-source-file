@@ -34,11 +34,11 @@
 
     #intro-video {
       position: fixed;
+      object-fit: cover;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      object-fit: contain;
       z-index: 10;
     }
 
@@ -327,11 +327,11 @@
     <div class="welcome">प्राचीनानां निनादः भविष्यस्य संरचना</div>
     <div class="nav">
       <a href="#" class="disabled" id="home-link"><span class="calibri">H</span><span class="samarkan">ome</span></a>
-      <a href="#" class="disabled" id="about-link"><span class="calibri">A</span><span class="samarkan">bout</span></a>
+      <a href="https://aadigenx-cosmic-resonance-web.lovable.app/about" class="disabled" id="about-link"><span class="calibri">A</span><span class="samarkan">bout</span></a>
       <a href="#" class="disabled" id="gallery-link"><span class="calibri">G</span><span class="samarkan">allery</span></a>
+      <a href="https://aadigenx-cosmic-resonance-web.lovable.app/blogs" class="disabled" id="blogs-link"><span class="calibri">B</span><span class="samarkan">logs</span></a>
       <a href="#" class="disabled" id="careers-link"><span class="calibri">C</span><span class="samarkan">areers</span></a>
-      <a href="#" class="disabled" id="contact-link"><span class="calibri">C</span><span class="samarkan">ontact</span></a>
-
+      <a href="https://aadigenx-cosmic-resonance-web.lovable.app/contact" class="disabled" id="contact-link"><span class="calibri">C</span><span class="samarkan">ontact</span></a>
     </div>
 
     <div class="hero" id="hero">
@@ -470,7 +470,7 @@
 
   <p><strong>Unlock Your Future with <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span></strong> – Be a Pioneer, Not Just a Learner</p>
 
-  <p>At <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span>, we <strong>don’t</strong> just teach <span class="calibri">A</span><span class="samarkan">I</span>—we <strong>engineer pioneers</strong> who will <strong>lead the next wave of intelligence, discovery, and interdisciplinary revolutions</strong>.</p>
+  <p>At <span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">G</span><span class="samarkan">en</span><span class="calibri">X</span>, we <strong>don't</strong> just teach <span class="calibri">A</span><span class="samarkan">I</span>—we <strong>engineer pioneers</strong> who will <strong>lead the next wave of intelligence, discovery, and interdisciplinary revolutions</strong>.</p>
 
   <p><span class="calibri">A</span><span class="samarkan">I</span> is not just a skill—it is an evolving ecosystem of <strong>knowledge, innovation, and disruption</strong>.</p>
 
@@ -497,6 +497,8 @@
 
 
 
+
+
     <div class="footer">&copy; 2025 AadiGenix. All rights reserved.</div>
   </div>
 
@@ -518,7 +520,6 @@
       const gallerySection = document.getElementById("gallery-section");
       const careersLink = document.getElementById("careers-link");
       const careersSection = document.getElementById("careers-section");
-      const contactSection = document.getElementById("contact-section");
       let galleryFirstOpened = false;
 
       // ✅ TEMPORARY: Enable nav links for testing
@@ -532,7 +533,6 @@
        aboutSection.style.display = "none";
        gallerySection.style.display = "none";
        careersSection.style.display = "none";
-       if (contactSection) contactSection.style.display = "none";
        document.querySelectorAll('.about-text').forEach(el => el.style.display = 'none');
        document.querySelector('.about-subnav').style.display = 'none';
      }
@@ -570,7 +570,7 @@
           heroVideo.currentTime = 0;
 
           setTimeout(() => {
-            heroVideo.play();
+            heroVideo.play(); 
             setTimeout(() => {
               heroVideo.pause();
               heroVideo.style.opacity = 0;
@@ -592,37 +592,7 @@
 
       let hasNavigated = false;
 
-aboutLink.addEventListener("click", function (e) {
-  e.preventDefault();
-  hasNavigated = true;
 
-  hideAllSections();
-
-  heroVideo.pause();
-  heroVideo.style.opacity = 0;
-  welcomeText.style.display = "none";
-  logoContainer.style.display = "none";
-  hero.style.backgroundImage = "url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/scrolls_bg_9.png')";
-  hero.style.backgroundSize = "contain";
-  hero.style.backgroundPosition = "center center";
-  hero.style.backgroundRepeat = "no-repeat";
-  hero.style.backgroundAttachment = "fixed";
-  hero.style.backgroundColor = "black";
-  aboutSection.style.display = "block";
-
-  const subnav = document.querySelector('.about-subnav');
-  subnav.style.display = 'flex';
-
-  if (!subnav.dataset.listenersAttached) {
-    subnav.querySelectorAll('button').forEach(button => {
-      button.addEventListener('click', function () {
-        const id = this.getAttribute('data-id');
-        showSubsection(id);
-      });
-    });
-    subnav.dataset.listenersAttached = 'true';
-  }
-});
 
 
 
@@ -674,6 +644,8 @@ careersLink.addEventListener("click", function (e) {
 
   careersSection.style.display = "block";
 });
+
+
 
 
 
