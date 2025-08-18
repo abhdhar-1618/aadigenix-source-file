@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AadiGenx</title>
   <style>
+
+:root{
+  --roller-h: 84px;    /* height of top & bottom rolling bars */
+
+  --nav-y: -6px;
+  --roller-gutter: 0px;  /* no side padding; use full width */}
+body{
+  padding-top: var(--roller-h);
+  padding-bottom: var(--roller-h);
+}
+
     @font-face {
       font-family: 'Samarkan';
       src: url('https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/Samarkan.woff2') format('woff2');
@@ -56,7 +67,9 @@
 
     .welcome {
       position: absolute;
-      top: 55%;
+      /* Position the tagline just below the AadiGenX name */
+      /* Move the tagline slightly higher so it doesn’t overlap the logo/name */
+      top: 60%;
       left: 50%;
       transform: translate(-50%, -50%);
       font-size: 32px;
@@ -71,44 +84,82 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    .nav {
+    
+
+
+
+
+.nav {
   position: fixed;
   top: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
+  width: 100vw;                 /* use full viewport width */
+  height: var(--roller-h);
+  padding-left: var(--roller-gutter);
+  padding-right: var(--roller-gutter);
+  padding-top: 0;
+  padding-bottom: 0;
   background: rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  overflow-x: auto;
-  gap: 10px;
   z-index: 100;
+
+  display: grid;
+  grid-template-columns: repeat(var(--nav-count, 9), minmax(0, 1fr));
+  align-items: center;          /* vertical center of grid cells */
+  justify-items: center;        /* horizontal center of each label */
+  column-gap: 0;
+  overflow: hidden;
 }
+.nav::-webkit-scrollbar { display: none; }
+
+.nav::-webkit-scrollbar { display: none; }
+
+
+
 
 .nav a {
-  display: inline-block;
-  margin: 0 10px;
+  position: relative;
+  top: var(--nav-y);            /* nudge to roller centre axis */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
   font-size: 18px;
-  padding: 8px 12px;
   font-weight: bold;
   letter-spacing: 0.6px;
   text-decoration: none;
-  transition: all 0.3s ease-in-out;
-  color: white; /* Override browser default blue */
+  transition: color 0.3s ease-in-out;
+  color: white;
+  margin: 0;
+  line-height: 1;
+  padding: 0;
 }
 
 
-    .nav a.disabled {
-    pointer-events: none;
-    color: white; /* initial state */
-    opacity: 0.6;
-    }
 
-    .nav a.enabled {
-    pointer-events: auto;
-    color: #ffffff; /* white after activation */
-    transition: color 0.3s ease-in-out;
-    }
+
+
+.nav a.disabled {
+  pointer-events: none;
+  color: white;
+  opacity: 0.6;
+}
+
+.nav a.enabled {
+  pointer-events: auto;
+  color: white;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav a.enabled:hover {
+  color: yellow;
+}
+
+.nav a.enabled:active {
+  color: yellow;
+}
 
 
     .nav a:hover {
@@ -299,10 +350,8 @@
     pointer-events: none;
     }
 
-    html, body {
-      overflow: hidden;
-      height: 100%;
-    }
+    /* Updated global overflow settings to allow vertical scroll and prevent cutoff on small screens */
+    html, body { overflow-x: hidden; min-height: 100%; }
 
     .about-text::-webkit-scrollbar {
       width: 8px;
@@ -317,7 +366,136 @@
       background-color: transparent;
     }
 
-  </style>
+    /* Responsive adjustments for smaller devices */
+    @media (max-width: 768px) {
+      .nav a {
+        font-size: 14px;
+        padding: 6px 8px;
+        margin: 0 6px;
+      }
+      .welcome {
+        font-size: 20px;
+        /* Raise the tagline on medium screens to avoid overlapping the brand */
+        top: 68%;
+      }
+      .logo {
+        width: 150px;
+      }
+      #logo-container {
+        /* Bring the logo up from the extreme bottom so it remains visible */
+        bottom: 18%;
+      }
+      .about-text {
+        width: 80vw;
+        font-size: 18px;
+        padding: 18px 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav a {
+        font-size: 12px;
+        padding: 4px 6px;
+        margin: 0 4px;
+      }
+      .welcome {
+        font-size: 16px;
+        /* Raise the tagline further on very small screens */
+        top: 72%;
+      }
+      .logo {
+        width: 120px;
+      }
+      #logo-container {
+        /* Increase the bottom offset further on very small screens */
+        bottom: 20%;
+      }
+      .about-text {
+        width: 90vw;
+        font-size: 16px;
+        padding: 16px 20px;
+      }
+    }
+
+  
+/* === Tagline above logo fix === */
+#logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+@media (max-width: 768px) { 
+  
+}
+@media (max-width: 480px) { 
+  
+}
+
+
+@media (max-width: 768px) {
+  .nav { height: 64px; padding: 0 12px; }
+  .nav a { font-size: 14px; padding: 6px 0; }
+}
+@media (max-width: 480px) {
+  .nav { height: 56px; padding: 0 8px; }
+  .nav a { font-size: 12px; padding: 4px 0; }
+}
+
+
+/* Bottom rolling bar: centers tagline exactly in X & Y */
+.bottom-roller{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--roller-h);
+  display: flex;
+  align-items: center;     /* vertical centering */
+  justify-content: center; /* horizontal centering */
+  z-index: 100;
+  background: rgba(0,0,0,0.0); /* no visual; aligns to your rolled asset */
+  pointer-events: none;    /* does not block content; tagline is non-interactive */
+}
+.bottom-roller .welcome{
+  position: static !important;
+  transform: none !important;
+  white-space: nowrap;
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  max-width: 92vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 12px;
+}
+@media (max-width: 768px){
+  .bottom-roller .welcome{ font-size: 20px; }
+}
+@media (max-width: 480px){
+  .bottom-roller .welcome{ font-size: 16px; }
+}
+
+
+/* Hide scrollbar while on the landing page only */
+body.landing { overflow-y: hidden; }
+body.landing::-webkit-scrollbar { display: none; }
+
+
+/* Hide scrollbar completely on landing */
+html.landing, body.landing {
+  overflow: hidden !important;
+  height: 100% !important;
+  padding: 0 !important;
+}
+html.landing::-webkit-scrollbar,
+body.landing::-webkit-scrollbar {
+  display: none !important;
+}
+
+</style>
 </head>
 <body>
   <video id="intro-video" autoplay muted playsinline>
@@ -333,19 +511,16 @@
   <div id="click-overlay">Tap to awaken the resonance…</div>
 
   <div id="main-content">
-    <div class="welcome">प्राचीनानां निनादः भविष्यस्य संरचना</div>
-    
-
-<div class="nav">
-  <a href="#" class="disabled" id="aadiaan-link"><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">A</span><span class="samarkan">n</span></a>
-  <a href="https://preview--aadigenx-cosmic-resonance-web.lovable.app/about" id="aaditatva-link" class="disabled"><span class="calibri">A</span><span class="samarkan">dhi</span><span class="calibri">t</span><span class="samarkan">va</span></a>
-  <a href="#" class="disabled" id="aadinaad-link"><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">N</span><span class="samarkan">aad</span></a>
-  <a href="#" class="disabled" id="srijanpeeth-link"><span class="calibri">S</span><span class="samarkan">rijan</span><span class="calibri">P</span><span class="samarkan">eeth</span></a>
-  <a href="#" class="disabled" id="aadikul-link"><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">K</span><span class="samarkan">ul</span></a>
-  <a href="#" class="disabled" id="drishyam-link"><span class="calibri">D</span><span class="samarkan">ris</span><span class="calibri">H</span><span class="samarkan">yam</span></a>
-  <a href="#" class="disabled" id="aadipath-link"><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">P</span><span class="samarkan">ath</span></a>
-  <a href="#" class="disabled" id="aadiyatra-link"><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">Y</span><span class="samarkan">atra</span></a>
-  <a href="#" class="disabled" id="tatvasutra-link"><span class="calibri">Tat</span><span class="samarkan">Sutra</span></a>
+    <div class="nav">
+  <a href="/" class="disabled" id="aadiaan-link"><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">A</span><span class="samarkan">n</span></a>
+  <a href="https://preview--aadigenx-cosmic-resonance-web.lovable.app/about" class="disabled" id="aaditatva-link"><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">T</span><span class="samarkan">atva</span></a>
+  <a href="https://preview--aadigenx-cosmic-resonance-web.lovable.app/naad" class="disabled" id="aadinaad-link"><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">N</span><span class="samarkan">aad</span></a>
+  <a href="https://preview--aadigenx-cosmic-resonance-web.lovable.app/srijan" class="disabled" id="srijanpeeth-link"><span class="calibri">S</span><span class="samarkan">rijan</span><span class="calibri">P</span><span class="samarkan">eeth</span></a>
+  <a href="https://preview--aadigenx-cosmic-resonance-web.lovable.app/kul" class="disabled" id="aadikul-link"><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">K</span><span class="samarkan">ul</span></a>
+  <a href="https://preview--aadigenx-cosmic-resonance-web.lovable.app/gallery" class="disabled" id="drishyam-link"><span class="calibri">D</span><span class="samarkan">ris</span><span class="calibri">H</span><span class="samarkan">yam</span></a>
+  <a href="https://preview--aadigenx-cosmic-resonance-web.lovable.app/blogs" class="disabled" id="aadipath-link"><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">P</span><span class="samarkan">ath</span></a>
+  <a href="https://preview--aadigenx-cosmic-resonance-web.lovable.app/careers" class="disabled" id="aadiyatra-link"><span class="calibri">A</span><span class="samarkan">adi</span><span class="calibri">Y</span><span class="samarkan">atra</span></a>
+  <a href="https://preview--aadigenx-cosmic-resonance-web.lovable.app/contact" class="disabled" id="tatvasutra-link"><span class="calibri">Tat</span><span class="samarkan">Sutra</span></a>
 </div>
 
 
@@ -356,7 +531,8 @@
         Your browser does not support the video tag.
       </video>
       <h1></h1>
-      <div id="logo-container" style="position: absolute; bottom: 3%; left: 50%; transform: translate(-50%, 0); text-align: center;">
+      <!-- Position the logo slightly higher to avoid being cut off at the extreme bottom -->
+      <div id="logo-container" style="position: absolute; bottom: 15%; left: 50%; transform: translate(-50%, 0); text-align: center;">
         <img src="https://raw.githubusercontent.com/abhdhar-1618/aadigenix-source-file/main/Aadigenx%20Logo_Clear_BG.png" alt="AadiGenix Logo" id="logo" class="logo" />
       </div>
     </div>
@@ -518,6 +694,21 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+// Delegated click: block while disabled; navigate when enabled
+document.querySelector('.nav').addEventListener('click', function(e) {
+  const link = e.target.closest('a');
+  if (!link) return;
+  const href = link.getAttribute('href');
+  if (!href || href === '#') { e.preventDefault(); return; }
+  if (link.classList.contains('disabled')) {
+    e.preventDefault();
+    return;
+  }
+  // allowed: make sure we navigate even if preview intercepts
+  e.preventDefault();
+  try { window.location.assign(href); } catch (_) { window.location.href = href; }
+});
+
       const introVideo = document.getElementById("intro-video");
       const mainContent = document.getElementById("main-content");
       const heroVideo = document.getElementById("hero-video");
@@ -747,5 +938,49 @@ careersLink.addEventListener("click", function (e) {
 
     });
   </script>
+
+<!-- Fixed bottom rolling bar with centered tagline -->
+<div class="bottom-roller">
+  <div class="welcome">प्राचीनानां निनादः भविष्यस्य संरचना</div>
+    
+
+
+</div>
+
+
+<script>
+(function() {
+  function setNavCount() {
+    var nav = document.querySelector('.nav');
+    if (!nav) return;
+    var count = nav.querySelectorAll('a').length || 1;
+    document.documentElement.style.setProperty('--nav-count', count);
+  }
+  document.addEventListener('DOMContentLoaded', setNavCount);
+  window.addEventListener('load', setNavCount);
+})();
+</script>
+
+
+<script>
+(function() {
+  function setNavCount() {
+    var nav = document.querySelector('.nav');
+    if (!nav) return;
+    var count = nav.querySelectorAll('a').length || 1;
+    document.documentElement.style.setProperty('--nav-count', count);
+  }
+  function enableScroll() { document.body.classList.remove('landing'); }
+  document.addEventListener('DOMContentLoaded', function() {
+    setNavCount();
+    document.body.classList.add('landing');  // hide scrollbar on landing
+    var overlay = document.getElementById('click-overlay');
+    if (overlay) overlay.addEventListener('click', enableScroll);
+    document.querySelectorAll('.nav a').forEach(function(a){ a.addEventListener('click', enableScroll); });
+  });
+  window.addEventListener('load', setNavCount);
+})();
+</script>
+
 </body>
 </html>
